@@ -1,0 +1,18 @@
+<div class="login-container">
+  <h2>Student Login</h2>
+  <form (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" [(ngModel)]="username" placeholder="Enter ID">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Enter Password">
+    </div>
+    <button type="submit">Login</button>
+  </form>
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+  <p><a routerLink="/register">Need an account? Register</a></p>
+</div>

@@ -1,0 +1,337 @@
+.module-view-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.main-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #e9ecef;
+  background: #ffffff;
+}
+
+.back-to-dashboard {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  color: #0d6efd;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.module-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.module-subtitle {
+  margin-top: 4px;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.module-links {
+  margin-top: 6px;
+
+  a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.module-header-right {
+  min-width: 180px;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: right;
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f1f3f5;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #0d6efd;
+  border-radius: 999px;
+}
+
+.module-body {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+}
+
+.lesson-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  overflow-y: auto;
+  transition: transform 0.3s ease, width 0.3s ease, padding 0.3s ease;
+  
+  &.hidden {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    border: none;
+  }
+  
+  h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    white-space: nowrap;
+  }
+}
+
+.sidebar-toggle-btn {
+  position: absolute;
+  left: 280px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  padding: 10px 4px;
+  cursor: pointer;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transition: left 0.3s ease;
+  
+  &:hover {
+    background-color: #f0f0f0;
+  }
+  
+  &.collapsed {
+    left: 0;
+  }
+}
+
+.lesson-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lesson-item {
+  padding: 12px 15px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  
+  &:hover {
+    background-color: #e9ecef;
+    transform: translateX(2px);
+  }
+  
+  &.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    
+    .lesson-order {
+      background-color: white;
+      color: #007bff;
+    }
+
+    .lesson-done {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+  }
+}
+
+.lesson-order {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.lesson-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lesson-done {
+  border: 1px solid #ddd;
+  background: transparent;
+  border-radius: 999px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.lesson-done.done {
+  border-color: #198754;
+  color: #198754;
+}
+
+.lesson-content {
+  flex: 1;
+  padding: 30px 40px;
+  overflow-y: auto;
+  background-color: #fff;
+  
+  h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+  }
+  
+  .content-body {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #444;
+    
+    ::ng-deep img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    
+    ::ng-deep pre {
+      background-color: #111827;
+      color: #f9fafb;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+
+    ::ng-deep code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      background: rgba(0, 0, 0, 0.06);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.95em;
+    }
+
+    ::ng-deep pre code {
+      background: transparent;
+      padding: 0;
+    }
+
+    ::ng-deep h1 {
+      font-size: 1.9rem;
+      margin-top: 0;
+    }
+
+    ::ng-deep h2 {
+      font-size: 1.5rem;
+    }
+
+    ::ng-deep h3 {
+      font-size: 1.2rem;
+    }
+
+    ::ng-deep ul, ::ng-deep ol {
+      padding-left: 22px;
+    }
+  }
+  
+  .empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #888;
+    font-size: 1.2rem;
+  }
+}
+
+.resize-handle {
+  width: 5px;
+  cursor: col-resize;
+  background-color: #ddd;
+  transition: background-color 0.2s;
+  z-index: 10;
+  
+  &:hover, &:active {
+    background-color: #007bff;
+  }
+}
+
+.chat-panel {
+  border-left: 1px solid #ddd;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.error {
+  color: #dc3545;
+}

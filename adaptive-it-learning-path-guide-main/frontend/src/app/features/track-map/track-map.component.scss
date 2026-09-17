@@ -1,0 +1,88 @@
+.track-map {
+  padding: 20px;
+}
+
+.module-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.module-card {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  &.in_progress {
+    border-left: 5px solid #007bff;
+  }
+
+  &.completed {
+    border-left: 5px solid #28a745;
+  }
+
+  &.locked {
+    opacity: 0.75;
+  }
+}
+
+.status-icon {
+  font-size: 1.5rem;
+  margin-right: 15px;
+}
+
+.module-info {
+  flex: 1;
+}
+
+.module-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.status-text {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.progress-bar-track {
+  margin-top: 8px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #e9ecef;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #28a745;
+  transition: width 0.3s ease;
+}
+
+.progress-percentage {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.loading-text,
+.error-text {
+  color: #666;
+  padding: 10px 0;
+}
+
+.error-text {
+  color: #c0392b;
+}

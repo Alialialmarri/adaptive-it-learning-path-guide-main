@@ -1,0 +1,49 @@
+<div class="track-map">
+  <h2>Learning Path: Programming Track</h2>
+
+  @if (loading) {
+    <p class="loading-text">Loading your progress...</p>
+  }
+
+  @if (error) {
+    <p class="error-text">{{ error }}</p>
+  }
+
+  @if (!loading && !error) {
+    <div class="module-list">
+      @for (module of modules; track module.id) {
+        <div
+          class="module-card"
+          [ngClass]="module.status"
+          (click)="selectModule(module)">
+          <div class="status-icon">
+            @if (module.status === 'completed') {
+              <span>✅</span>
+            }
+            @if (module.status === 'in_progress') {
+              <span>▶️</span>
+            }
+            @if (module.status === 'locked') {
+              <span>⭕</span>
+            }
+          </div>
+          <div class="module-info">
+            <h3>{{ module.title }}</h3>
+            <p class="status-text">
+              @if (module.status === 'locked') {
+                Not started
+              }
+              @if (module.status !== 'locked') {
+                {{ module.status | titlecase }}
+              }
+            </p>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" [style.width.%]="module.completionPercentage"></div>
+            </div>
+            <p class="progress-percentage">{{ module.completionPercentage }}% complete</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,64 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <h3>AI Tutor</h3>
+    <span class="status-dot online"></span>
+    <div class="header-actions">
+      <button class="header-btn" type="button" (click)="startNewChat()">
+        New Chat
+      </button>
+      <button class="header-btn" type="button" (click)="toggleHistoryPanel()">
+        History
+      </button>
+    </div>
+  </div>
+
+  @if (showHistoryPanel) {
+    <div class="history-panel">
+      @if (loadingHistoryList) {
+        <div class="history-empty">Loading your past conversations...</div>
+      }
+      @if (!loadingHistoryList && historySummaries.length === 0) {
+        <div class="history-empty">No past conversations yet.</div>
+      }
+      @for (summary of historySummaries; track summary.module_id) {
+        <button type="button" class="history-item" (click)="viewHistoryFor(summary)">
+          <span class="history-item-title">{{ summary.module_title }}</span>
+          <span class="history-item-date">{{ summary.last_message_at | date:'short' }}</span>
+        </button>
+      }
+    </div>
+  }
+
+  @if (viewingHistoryModuleId !== null) {
+    <div class="history-banner">
+      <span>Viewing past conversation: <strong>{{ viewingHistoryTitle }}</strong></span>
+      <button type="button" (click)="returnToCurrentChat()">Return to current chat</button>
+    </div>
+  }
+
+  <div class="chat-messages" #scrollContainer>
+    @for (msg of messages; track msg) {
+      <div class="message" [ngClass]="msg.sender">
+        <div class="bubble" [innerHTML]="renderMarkdown(msg.text)"></div>
+      </div>
+    }
+    @if (isProcessing) {
+      <div class="message bot">
+        <div class="bubble typing-indicator">
+          <span>.</span><span>.</span><span>.</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="chat-input-area">
+    <input
+      [(ngModel)]="userInput"
+      (keyup.enter)="sendMessage()"
+      [placeholder]="viewingHistoryModuleId === null ? 'Ask a question about this module...' : 'Return to current chat to send a message'"
+      type="text"
+      [disabled]="isProcessing || viewingHistoryModuleId !== null"
+      />
+    <button (click)="sendMessage()" [disabled]="isProcessing || !userInput.trim() || viewingHistoryModuleId !== null">Send</button>
+  </div>
+</div>

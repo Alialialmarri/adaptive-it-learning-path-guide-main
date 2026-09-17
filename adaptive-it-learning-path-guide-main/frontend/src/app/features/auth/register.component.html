@@ -1,0 +1,22 @@
+<div class="login-container">
+  <h2>Create Account</h2>
+  <form (ngSubmit)="register()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" [(ngModel)]="username" placeholder="Choose a username">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Choose a password">
+    </div>
+    <button type="submit" [disabled]="loading">{{ loading ? 'Creating...' : 'Register' }}</button>
+  </form>
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+  <p><a routerLink="/login">Already have an account? Log in</a></p>
+</div>

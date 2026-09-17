@@ -1,0 +1,74 @@
+@if (!loading && !error && module) {
+  <div class="module-view-container">
+    <div class="main-content-area" [style.flex-grow]="1">
+      <div class="module-header">
+        <div class="module-header-left">
+          <a routerLink="/dashboard" class="back-to-dashboard">
+            <span aria-hidden="true">←</span> Learning Path
+          </a>
+          <div class="module-title">{{ module.title }}</div>
+          @if (selectedLesson) {
+            <div class="module-subtitle">Lesson: {{ selectedLesson.order }}. {{ selectedLesson.title }}</div>
+          }
+          <div class="module-links">
+            <a href="https://www.w3schools.com/dsa/" target="_blank" rel="noopener noreferrer">Reference (W3Schools DSA)</a>
+          </div>
+        </div>
+        <div class="module-header-right">
+          <div class="progress-label">{{ getProgressPercent() }}% complete</div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getProgressPercent()"></div>
+          </div>
+        </div>
+      </div>
+      <div class="module-body">
+        <button class="sidebar-toggle-btn" (click)="toggleSidebar()" [class.collapsed]="!isSidebarVisible">
+          {{ isSidebarVisible ? '◀' : '▶' }}
+        </button>
+        <div class="lesson-sidebar" [class.hidden]="!isSidebarVisible">
+          <h3>Lessons</h3>
+          <div class="lesson-list">
+            @for (lesson of module.lessons; track lesson) {
+              <div
+                class="lesson-item"
+                [class.active]="lesson.id === selectedLesson?.id"
+                (click)="selectLesson(lesson)">
+                <span class="lesson-order">{{ lesson.order }}</span>
+                <span class="lesson-title">{{ lesson.title }}</span>
+                <button class="lesson-done" (click)="toggleLessonCompleted(lesson, $event)" [class.done]="isLessonCompleted(lesson)">
+                  {{ isLessonCompleted(lesson) ? '✓' : '○' }}
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="lesson-content">
+          @if (selectedLesson) {
+            <h2>{{ selectedLesson.title }}</h2>
+          }
+          @if (selectedLesson) {
+            <div class="content-body" [innerHTML]="renderMarkdown(selectedLesson.content)"></div>
+          }
+          @if (!selectedLesson) {
+            <div class="empty-state">Select a lesson to start learning.</div>
+          }
+        </div>
+      </div>
+    </div>
+    <!-- Resize Handle -->
+    <div class="resize-handle" (mousedown)="startResizing($event)"></div>
+    <div class="chat-panel" [style.width.px]="chatPanelWidth">
+      <app-chat-interface
+        [context]="selectedLesson ? { title: selectedLesson.title, id: selectedLesson.id, type: 'lesson' } : (module ? { title: module.title, id: module.id, type: 'module' } : null)"
+        [moduleId]="module?.id ?? null">
+      </app-chat-interface>
+    </div>
+  </div>
+}
+
+@if (loading) {
+  <div class="loading">Loading module content...</div>
+}
+@if (error) {
+  <div class="error">{{ error }}</div>
+}

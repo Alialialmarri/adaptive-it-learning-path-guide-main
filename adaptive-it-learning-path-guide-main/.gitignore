@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+
+# Environment / secrets
+.env
+backend/.env
+
+# Databases / generated data
+sql_app.db
+backend/sql_app.db
+backend/chroma_db/
+chroma_db/
+
+# Build output
+frontend/dist/
+frontend/.angular/
+dist/
+
+# Runtime / logs
+.run/
+*.log
+
+# Personal / non-project documents
+*.pdf
+*.docx
+~$*
+
+# OS/editor
+.DS_Store
+.vscode/
+.claude/
